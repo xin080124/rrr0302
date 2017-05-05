@@ -4,22 +4,18 @@
 --Student ID:   	######
 --Student Name: 	MyName MySurname
 -------------------------------------------------------
--- DROP TABLE DQLog;
--- CREATE TABLE DQLog
--- (
--- LogID 		int PRIMARY KEY IDENTITY,
--- RowID 		varbinary(32),		-- This is a physical address of a row stored on a disk and it is UNIQUE
--- DBName 		nchar(20),
--- TableName	nchar(20),
--- RuleNo		smallint,
--- Action		nchar(6) CHECK (action IN ('allow','fix','reject')) -- Action can be ONLY 'allow','fix','reject'
--- );
+DROP TABLE DQLog;
+CREATE TABLE DQLog
+(
+LogID 		int PRIMARY KEY IDENTITY,
+RowID 		varbinary(32),		-- This is a physical address of a row stored on a disk and it is UNIQUE
+DBName 		nchar(20),
+TableName	nchar(20),
+RuleNo		smallint,
+Action		nchar(6) CHECK (action IN ('allow','fix','reject')) -- Action can be ONLY 'allow','fix','reject'
+);
 
---check all product in northwind 5
-INSERT INTO DQLog(RowID, DBName, TableName, RuleNo, Action)
-SELECT %%physloc%%, 'Northwind5','Products',1,'reject'
-FROM Northwind5.dbo.Products
-WHERE UnitPrice<=0
+
 
 print '***************************************************************'
 print '****** Section 2: DQ Checking and Logging based on DQ Rules'
@@ -34,11 +30,20 @@ print 'Table: 		Products'
 print '------------------------'
 -- From Week 8 Worksheet - Step D.1. 
 -- Write your SQL statement below... 
-
+--check all product in northwind 5
+INSERT INTO DQLog(RowID, DBName, TableName, RuleNo, Action)
+SELECT %%physloc%%, 'Northwind5','Products',1,'reject'
+FROM Northwind5.dbo.Products
+WHERE UnitPrice<=0
 
 -- From Week 8 Worksheet - Step D.2. 
 -- Write your SQL statement below... 
+SELECT *
+FROM Northwind5.dbo.Products p
+WHERE p.%%physloc%% = 0x4900000001000000;
 
+--result:
+-- 1	Chai	0	10 boxes x 20 bags	0.00	39	0	10	0
 
 -- From Week 8 Worksheet - Step D.3. 
 -- Write your SQL statement below... 
