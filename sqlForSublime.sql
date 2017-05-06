@@ -1,3 +1,22 @@
+-- For assignment 2, rule 1
+--check all product in northwind 5
+INSERT INTO DQLog(RowID, DBName, TableName, RuleNo, Action)
+SELECT %%physloc%%, 'dw_assignment2','Products',1,'reject'
+FROM [dw_assignment2].[dbo].[factorders]
+WHERE UnitPrice<=0
+
+-- no error, so I will make an error myself
+SELECT *
+FROM [dw_assignment2].[dbo].[factorders]
+WHERE OrderID = 11006 AND ProductKey = 1
+
+-- then we got its unit price : 18.00
+-- update its UnitPrice to 0
+UPDATE [dw_assignment2].[dbo].[factorders]
+SET UnitPrice = 0
+WHERE OrderID = 11006 AND ProductKey = 1
+
+
 -------------------------------------------------------
 --Data Quality Checking and Logging for Data Warehouse
 --Check For DW: 	My First Northwind DW
