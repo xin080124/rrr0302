@@ -33,5 +33,8 @@ setcookie("auth",$authsecret,time()+3600*24*365);
 header("Location: index.php");
 
 ##################################################
+remove all db:
+flushall
+
 
 

@@ -170,3 +170,38 @@ print '=============== END RULE 6 CHECKING ======================'
 -- Total Fix 	####
 -- Total Reject	####
 -- **************************************************************
+
+
+-- ********for Cassandra*********************
+CREATE KEYSPACE people WITH REPLICATION = {'class' : 'SimpleStrategy','replication_factor' : 
+
+3};
+
+DESCRIBE KEYSPACE people
+
+USE people;
+
+CREATE TABLE employees(id uuid, name varchar, email varchar, PRIMARY KEY(id,email));
+
+SELECT * FROM employees;
+
+DESCRIBE TABLE employees;
+
+INSERT INTO employees(id,name,email) VALUES (now(),'John Doe','jdoe@gmail.com');
+
+INSERT INTO employees(id,name,email) VALUES (now(),'Sam Smith','ssmith@gmail.com');
+
+SELECT name FROM employees WHERE email = 'jdoe@gmail.com' ALLOW FILTERING;
+
+
+
+
+
+
+
+
+
+
+
+
+
