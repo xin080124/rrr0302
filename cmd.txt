@@ -1,0 +1,25 @@
+use git hub to add folders
+select project---right key---open in explorer
+---add folder and file manually---click project node in github again
+---open git shell---git add .\js\global.js
+---if fail,use git add -f .\js\global.js instead
+---type "git commit"----a txtfile will pump out---input commit log
+---close the txtfile---the commit action will be completed automatically
+---type ¡°git push¡± in shell or click ¡°sync¡± button on right top to push change to server.
+
+use git hub to pull public codes
+----just like svn, manually create a folder in windows file browser
+
+
+
+????create another account to cowork with the first account
+to practise create branch operation and merge operation.
+
+how to launch cmd on Windows8
+press "start" ,input "cmd" in the search textbox locates on the right top¡£¡£¡£
+
+how to know if a PC has JDK?
+enter Windows cmd, input "java", if the system feedback can't recognize, then there's no JDK.
+
+
+
