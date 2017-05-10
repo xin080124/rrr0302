@@ -9,6 +9,9 @@ select project---right key---open in explorer
 
 use git hub to pull public codes
 ----just like svn, manually create a folder in windows file browser
+----download the github project
+----open github on windows
+----left top,select "add"
 
 
 
