@@ -16,6 +16,8 @@ UPDATE [dw_assignment2].[dbo].[factorders]
 SET UnitPrice = 0
 WHERE OrderID = 11006 AND ProductKey = 1
 
+DELETE FROM table_name
+
 
 -------------------------------------------------------
 --Data Quality Checking and Logging for Data Warehouse
@@ -193,8 +195,24 @@ INSERT INTO employees(id,name,email) VALUES (now(),'Sam Smith','ssmith@gmail.com
 
 SELECT name FROM employees WHERE email = 'jdoe@gmail.com' ALLOW FILTERING;
 
+CREATE TABLE users (  
+  userid uuid PRIMARY KEY,  
+  first_name text,  
+  last_name text,  
+  emails set<text>,  
+  top_scores list<int>,  
+  todo map<timestamp, text>,  
+  create_time timestamp  
+);  
 
+-- get count
+SELECT COUNT(*) FROM users;  
 
+-- get first 10 records
+SELECT * FROM users LIMIT 10 ALLOW FILTERING;  
+
+-- search by token
+SELECT * FROM users WHERE TOKEN(userid) >= TOKEN(cfd66ccc-d857-4e90-b1e5-df98a3d40cd6);
 
 
 
