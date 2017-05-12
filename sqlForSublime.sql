@@ -214,6 +214,7 @@ SELECT * FROM users LIMIT 10 ALLOW FILTERING;
 -- search by token
 SELECT * FROM users WHERE TOKEN(userid) >= TOKEN(cfd66ccc-d857-4e90-b1e5-df98a3d40cd6);
 
+SELECT COUNT(*) FROM employees WHERE name = 'Sam Smith' ALLOW FILTERING;
 
 
 
