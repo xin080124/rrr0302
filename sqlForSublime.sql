@@ -1,3 +1,24 @@
+
+SELECT LEN(City) as LengthOfCity FROM Persons
+
+-- subquery
+
+SELECT *
+FROM dimCustomers dc
+WHERE dc.CustomerID NOT IN
+	(
+		SELECT CustomerID
+		FROM   northwind1.dbo.Customers c
+		WHERE  dc.CustomerID = c.CustomerID
+
+		UNION
+		SELECT CustomerID
+		FROM   northwind2.dbo.Customers c
+		WHERE dc.CustomerID = c.CustomerID
+    )
+
+	use dw_assignment2
+
 -- For assignment 2, rule 1
 --check all product in northwind 5
 INSERT INTO DQLog(RowID, DBName, TableName, RuleNo, Action)
@@ -16,8 +37,13 @@ UPDATE [dw_assignment2].[dbo].[factorders]
 SET UnitPrice = 0
 WHERE OrderID = 11006 AND ProductKey = 1
 
-DELETE FROM table_name
-
+DELETE FROM table_name;
+DELETE FROM [dw_assignment2].[dbo].[DQLog];
+  
+DELETE
+FROM [dw_assignment2].[dbo].[DQLog]
+WHERE DBName = 'northwind8'
+AND RuleNo = 5
 
 -------------------------------------------------------
 --Data Quality Checking and Logging for Data Warehouse
