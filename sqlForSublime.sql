@@ -200,7 +200,54 @@ print '=============== END RULE 6 CHECKING ======================'
 -- **************************************************************
 
 
--- ********for Cassandra*********************
+-- *****************************for redis*************************
+#set value to key
+redis>set try 1     #key: try   value:1
+
+#get all of the keys in redis:
+redis>keys * 
+
+redis> ZRANGE salary 0 -1 WITHSCORES    #
+1) "jack"
+2) "2000"
+3) "peter"
+4) "3500"
+5) "tom"
+6) "5000"
+
+redis> ZCOUNT salary 2000 5000          # caculate salary between 2000 to 5000 
+(integer) 3
+
+redis> ZCOUNT salary 3000 5000          # caculate salary between 2000 to 5000va
+(integer) 2
+
+redis 127.0.0.1:6379> HMSET KEY_NAME FIELD1 VALUE1 ...FIELDN VALUEN 
+
+redis 127.0.0.1:6379> HSET myhash field1 "foo" field2 "bar"
+OK
+redis 127.0.0.1:6379> HGET myhash field1
+"foo"
+redis 127.0.0.1:6379> HMGET myhash field2
+"bar"
+
+
+redis 127.0.0.1:6379> ZADD myset 1 "hello"
+(integer) 1
+redis 127.0.0.1:6379> ZADD myset 1 "foo"
+(integer) 1
+redis 127.0.0.1:6379> ZADD myset 2 "world" 3 "bar"
+(integer) 2
+redis 127.0.0.1:6379> ZRANGE myset 0 -1 WITHSCORES
+1) "hello"
+2) "1"
+3) "foo"
+4) "1"
+5) "world"
+6) "2"
+7) "bar"
+8) "3"
+
+-- ************************for Cassandra*********************
 CREATE KEYSPACE people WITH REPLICATION = {'class' : 'SimpleStrategy','replication_factor' : 
 
 3};
