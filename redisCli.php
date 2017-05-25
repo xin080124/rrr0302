@@ -8,6 +8,25 @@ INCR foo
 HMSET user:1 username runoob password runoob points 200
 HGETALL user:1
 
+
+redis> HMSET myhash field1 "Hello" field2 "World"
+OK
+redis> HGET myhash field1
+"Hello"
+redis> HGET myhash field2
+"World"
+redis> 
+
+//java interface
+ Map<String, String> map = new HashMap<String, String>();
+        map.put("name", "fujianchao");
+        map.put("password", "123");
+        map.put("age", "12");
+        // 存入一个map
+        jedis.hmset("user", map);
+
+
+
 ##################################################
 
 include("retwis.php");
