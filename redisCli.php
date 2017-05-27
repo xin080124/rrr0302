@@ -25,7 +25,23 @@ redis>
         // 存入一个map
         jedis.hmset("user", map);
 
-
+redis 127.0.0.1:6379> ZADD myset 1 "hello"
+(integer) 1
+redis 127.0.0.1:6379> ZADD myset 1 "foo"
+(integer) 1
+redis 127.0.0.1:6379> ZADD myset 2 "world" 3 "bar"
+(integer) 2
+redis 127.0.0.1:6379> ZRANGE myzset 0 -1 WITHSCORES
+1) "hello"
+2) "1"
+3) "foo"
+4) "1"
+5) "world"
+6) "2"
+7) "bar"
+8) "3"
+		
+		
 
 ##################################################
 
