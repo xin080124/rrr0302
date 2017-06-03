@@ -110,7 +110,8 @@ using(
 	select p.ProductID, p.ProductName, p.QuantityPerUnit, p.UnitPrice, p.UnitsInStock, p.UnitsOnOrder, 
 	p.ReorderLevel, p.Discontinued, c.CategoryName, c.Description, c.Picture
 	from northwind7.dbo.Products p, northwind7.dbo.Categories c
-	where p.CategoryID = c.CategoryID and p.%%physloc%% not in 
+	where p.CategoryID = c.CategoryID 
+	        and p.%%physloc%% not in 
 			(
 			select rowid from dqlog where dbname = 'northwind7' and tablename = 'Products' and 
 			(ruleno =1 or ruleno = 6) and action = 'Reject' --apply rule 1 and 6
