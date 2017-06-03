@@ -41,6 +41,22 @@ redis 127.0.0.1:6379> ZRANGE myzset 0 -1 WITHSCORES
 7) "bar"
 8) "3"
 		
+
+redis> ZRANGE salary 0 -1 WITHSCORES    #
+1) "jack"
+2) "2000"
+3) "peter"
+4) "3500"
+5) "tom"
+6) "5000"
+
+redis> ZCOUNT salary 2000 5000          # caculate salary between 2000 to 5000 
+(integer) 3
+
+redis> ZCOUNT salary 3000 5000          # caculate salary between 2000 to 5000
+
+(integer) 2
+
 		
 
 ##################################################
