@@ -14,6 +14,31 @@ use git hub to pull public codes
 ----left top,select "add"
 
 
+
+gdb
+
+create gdb version:
+gcc -g main.c -o forgdb
+
+run forgdb with gdb
+gdb forgdb
+
+set break point
+(gdb)b 3
+
+see stack info
+(gdb)info stack
+or 
+(gcb)bt
+
+
+
+linux cmd
+
+delete file:
+rm -rf xxx
+
+
 test on unitecPC branch
 create on 1900
 
