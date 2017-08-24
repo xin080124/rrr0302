@@ -14,6 +14,13 @@ use git hub to pull public codes
 ----left top,select "add"
 
 
+sync the branch
+git pull origin python:python
+
+
+
+
+
 
 gdb
 
@@ -29,7 +36,17 @@ set break point
 see stack info
 (gdb)info stack
 or 
-(gcb)bt
+(gdb)bt
+
+see source code
+(gdb)list
+
+see assembly
+(gdb)disas main
+
+see frame info
+(gdb)frame
+
 
 
 
