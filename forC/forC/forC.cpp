@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include<string.h> 
 
+void test(char **p);
+
 int main()
 {
 	printf("hello, vc++");
@@ -15,6 +17,21 @@ int main()
 	x = strlen(str);
 	y = sizeof(str);
 
-    return 0;
+	//char str3[10];
+	//str3 = "it315.org";   //error:expression must be a modifiable lvalue
+		
+	char *pstr;
+	
+	char *pchar = NULL;
+	char **pp = &pchar;
+
+	test(pp);
+
+	return 0;
+}
+
+void test(char **p)
+{
+	*p = new char[100];
 }
 
