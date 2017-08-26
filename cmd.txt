@@ -47,6 +47,8 @@ see assembly
 see frame info
 (gdb)frame
 
+see local variable
+(gdb)print x
 
 
 
@@ -58,6 +60,20 @@ rm -rf xxx
 
 test on unitecPC branch
 create on 1900
+
+
+
+java
+
+enter to a windows folder:
+cd
+
+list nodes in the current folder:
+use dir as cd
+
+C:\Users\PCTech\Workspace\HelloWorld\src>javac HelloWorld.java
+
+C:\Users\PCTech\Workspace\HelloWorld\src>java HelloWorld
 
 
 modify on 163 account£¬at 2230
