@@ -24,6 +24,20 @@ git branch -a
 switch to local 'xxx' branch
 git checkout xxx
 
+create a new branch 'xxx'
+git branch xxx
+
+push local new branch 'xxx' to remote
+git push origin xxx
+
+commit to local branch
+git commit -a
+
+push to remote branch 
+git push
+
+
+
 
 
 sync the branch
