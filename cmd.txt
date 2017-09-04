@@ -30,20 +30,25 @@ git branch xxx
 push local new branch 'xxx' to remote
 git push origin xxx
 
+see diff
+git diff
+
 commit to local branch
 git commit -a
 
 push to remote branch 
 git push
 
-
-
+if there is a Non-fast-forward error, which means conflicts exists, then use -f to push by force
+git push -f
 
 
 sync the branch
 git pull origin python:python
 
-
+git pull includes 2 actions:
+git fetch
+git merge
 
 
 
