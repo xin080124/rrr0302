@@ -4,6 +4,8 @@
 
 
 int testCharPointer();
+int testHeapAddress();
+int testUserInput();
 
 int main(void)
 {
@@ -21,18 +23,11 @@ int main(void)
     int res = sum(10,15);
     printf("\n the return value is %d",res);
 	
-
-    char *pc = (char *)malloc(10);
-       //assert(pc);
-
-       printf("\n the pc value is %h",(int)pc);
-	
-       int z = sizeof(pc);
-	
-       printf("\n the pc size is %d \n",z);
+    testHeapAddress();
 	
     testCharPointer();
     
+    testUserInput();
     return 0;
 }
 
@@ -56,7 +51,6 @@ int testCharPointer()
     //char *str7 = "abc";
     char str7[] = "abc";
     //char *str8 = "abc";    
- 
     printf("\n str7 = 0x%x \n",(int)str7);   
     //printf("str8 = 0x%x \n",(int)str8);   
 
@@ -64,5 +58,26 @@ int testCharPointer()
 
     //printf("str8 = %s \n",str8);   
 
+    return 0;
+}
+
+int testHeapAddress()
+{
+    char *pc = (char *)malloc(10);
+    //assert(pc);
+
+    printf("\n the pc value is %h",(int)pc);
+    int z = sizeof(pc); 
+    printf("\n the pc size is %d \n",z);
+
+    return 0;
+}
+
+int testUserInput()
+{
+    int input;
+    scanf("%d", &input);
+    printf("\n the user input is %d",input);
+    //fgets();
     return 0;
 }
