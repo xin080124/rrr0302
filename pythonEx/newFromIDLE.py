@@ -1,4 +1,3 @@
-##file_object = open("readLineByPy.txt","r")
 file_object = open("moviestest.txt","r")
 
 path_out = 'result.txt'
@@ -8,25 +7,41 @@ lines = file_object.readlines()
 lineContent = ''
 i=0
 for line in lines:
+    line = line.replace('\n','')
     i = i+1
-    print(('\n i = %d ')%(i))
-    line = line.replace('product/productId:','')
-    line = line.replace('review/userId:','] [')
-    line = line.replace('review/profileName:','] [')
-    line = line.replace('review/helpfulness:',' ] [ ')
-    line = line.replace('review/score:','] [')
-    line = line.replace('review/time:','] [')
-    line = line.replace('review/summary:',' ] [ ')
-    line = line.replace('review/text:',' ] [ ')
     
-    lineContent += line
-    lineContent = lineContent.replace('\n',' ')
-    print(lineContent)
+    #print(('\n i = %d ')%(i))
+    tag = 'hehe'
+    if i == 2:
+        tag = 'id'
+    elif  i==3:
+        tag ='title'
+    elif  i==4:
+        tag ='category'
+    elif  i==5:
+        tag ='desc'
+    elif  i==6:
+        tag ='popularity'
+    elif  i==7:
+        tag ='onsale'
+    elif  i==8:
+        tag ='price'
+    else:
+        tag ='end'
+
+    if i != 1 and i != 9:
+        xmlLine = "<"+tag+">" + line +  "</"+tag+">\n"
+        lineContent += xmlLine
+    # lineContent = lineContent.replace('\n',' ')
+        
     if i==9:
-        file_out.write("hehe "+lineContent+'\n') 
-        lineContent = ''
+        lineContent+="</book>\n"
+        print(lineContent)
+        file_out.write(lineContent) 
+        lineContent = "<book>\n"
+        #xmlLine 
         i=0
-file_out.write("hehe "+lineContent)
+# file_out.write("hehe "+lineContent)
 print ("\nsuccess")
 #this is a stream operation, or the next file_object
 #will get nothing

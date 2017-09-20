@@ -1,3 +1,80 @@
+
+#print in python
+strHello = "the length of (%s) is %d" %('Hello World',len('Hello World'))
+print strHello
+
+####################create json in python#############################################
+file_object = open("moviestest.txt","r")
+
+path_out = 'result.txt'
+
+file_out = open(path_out,'w')
+lines = file_object.readlines()
+lineContent = ''
+i=0
+for line in lines:
+    line = line.replace('\n','')
+    i = i+1
+    print(('\n i = %d ')%(i))
+    tag = 'hehe'
+    if i == 2:
+        tag = 'id'
+    elif  i==3:
+        tag ='title'
+    elif  i==4:
+        tag ='category'
+    elif  i==5:
+        tag ='desc'
+    elif  i==6:
+        tag ='popularity'
+    elif  i==7:
+        tag ='onsale'
+    elif  i==8:
+        tag ='price'
+    else:
+        tag ='end'
+
+    if i != 1 and i != 9:
+        jsonLine = "\""+tag+"\":\"" + line + "\","
+        lineContent += jsonLine
+    # lineContent = lineContent.replace('\n',' ')
+        print(lineContent)
+    if i==9:
+        file_out.write("'{ "+lineContent+"},'+\n") 
+        lineContent = ''
+        i=0
+# file_out.write("hehe "+lineContent)
+print ("\nsuccess")
+#this is a stream operation, or the next file_object
+#will get nothing
+file_object.close()
+file_out.close()
+
+####################################################################################
+
+from cassandra.cluster import Cluster
+cluster = Cluster(['127.0.0.1'])
+session = cluster.connect()
+session.execute("create KEYSPACE test_cassandra WITH replication = {'class':'SimpleStrategy', 'replication_factor': 2};")
+session.execute("use test_cassandra")
+session.execute("create table users(id int, name text, primary key(id));")
+session.execute("insert into users(id, name) values(1, 'I loving fish!');")
+session.execute("insert into users(id, name) values(2, 'Zhang zhipeng');")
+
+# session = cluster.connect("test_cassandra")
+# rows = session.execute("select * from users;")
+
+#####################################################
+import pycassa
+import time
+batch_size = 100
+con = pycassa.ConnectionPool('History',server_list=["127.0.0.1:9042"]
+cf = pycassa.ColumnFamily(con,cfName)
+cf.insert('row_key',{'col_name':'col_val'})
+
+def pycassa_connect
+():
+    return pycassa.connectionPool('History',server_list=["127.0.0.1:9042"])
 #############################################
 #debug ok code:
 ##file_object = open("readLineByPy.txt","r")
