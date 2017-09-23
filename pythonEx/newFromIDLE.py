@@ -1,46 +1,25 @@
-file_object = open("moviestest.txt","r")
+#file_object = open("moviestest.txt","r")
+file_object = open("course_books_Jeffrey_p.csv","r")
 
-path_out = 'result.txt'
+path_out = 'result0923.txt'
 
 file_out = open(path_out,'w')
 lines = file_object.readlines()
-lineContent = ''
-i=0
-for line in lines:
-    line = line.replace('\n','')
-    i = i+1
-    
-    #print(('\n i = %d ')%(i))
-    tag = 'hehe'
-    if i == 2:
-        tag = 'id'
-    elif  i==3:
-        tag ='title'
-    elif  i==4:
-        tag ='category'
-    elif  i==5:
-        tag ='desc'
-    elif  i==6:
-        tag ='popularity'
-    elif  i==7:
-        tag ='onsale'
-    elif  i==8:
-        tag ='price'
-    else:
-        tag ='end'
 
-    if i != 1 and i != 9:
-        xmlLine = "<"+tag+">" + line +  "</"+tag+">\n"
-        lineContent += xmlLine
-    # lineContent = lineContent.replace('\n',' ')
-        
-    if i==9:
-        lineContent+="</book>\n"
-        print(lineContent)
-        file_out.write(lineContent) 
-        lineContent = "<book>\n"
-        #xmlLine 
-        i=0
+for line in lines:
+        x = line.split(',')
+        #print x[0]
+        #print x[1]
+        #print x[2]
+        #lineContent = lineContent.replace('\n',' ')
+        x[1] = "\""+x[1]+"\""
+        x[2] = "\""+x[2]+"\""
+        x[3] = "\""+x[3]+"\""
+        sql = "INSERT INTO books0923 (book_id,book_name,author_name,yeartime) VALUES (NULL,"+x[1]+","+x[2]+","+x[3]+")"
+        sql = sql.replace(';','&')
+        sql = sql.replace('\n','')
+        sql = sql+";"
+        print sql
 # file_out.write("hehe "+lineContent)
 print ("\nsuccess")
 #this is a stream operation, or the next file_object
