@@ -81,7 +81,11 @@ see frame info
 see local variable
 (gdb)print x
 
+see frame sp
+(gdb)info frame
 
+what else can be seen in frame
+the value of eip, the address of argument...
 
 linux cmd
 
