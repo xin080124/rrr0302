@@ -12,8 +12,10 @@ void withCC::showCallOrder()
 	cout << "base function" << endl;
 }
 
-
+/*
 void subCC::showCallOrder()
 {
 	cout << "sub function" << endl;
 }
+*/
+

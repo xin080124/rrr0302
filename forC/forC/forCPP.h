@@ -23,5 +23,12 @@ class subCC:public withCC
 {
 public:
 	//virtual void showCallOrder();
-	void showCallOrder();
+	//void showCallOrder();
+};
+
+
+class T {
+public:
+	T() { cout << "constructor" << endl; }
+	~T() { cout << "destructor" << endl; }
 };

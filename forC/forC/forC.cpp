@@ -16,6 +16,16 @@ void memcpyChars(char *str, int step);
 
 void *getInstance(int userInput);
 
+void testInput();
+
+char* getReverse(char str[]);
+
+//void Hannoi(int n);
+void Hannoi(int n, char source, char dest, char temp);
+
+void testMalloc();
+
+void testNew();
 
 int main()
 {
@@ -60,15 +70,37 @@ int main()
 
 
 	void *testVirtual = NULL;
-	int input;
-	scanf("%d", &input);
-	
-	printf("the input is %d", input);
 	
 	//testVirtual = getInstance(input);
 	//testVirtual->showCallOrder();
-	
+
+	//swapCharByArray();
+	testInput();
+
+	getReverse("abcde");
+
+	//Hannoi(3);
+	Hannoi(3, 'A', 'C', 'B');
+
+	testMalloc();
+
+	testNew();
+
 	return 0;
+}
+
+void Hannoi(int n, char source, char dest, char temp)
+{
+	if (n > 1)
+    {
+		Hannoi(n - 1, source , temp, dest);
+		printf("\n %c --- %c",source, dest);
+		Hannoi(n - 1, temp, dest, source);
+    }
+	else
+	{
+		printf("\n %c --- %c", source, dest);
+	}
 }
 
 void test(char **p)
@@ -136,3 +168,101 @@ void memcpyChars(char *str, int step)
 
 	printf("res = %s", dest);
 }
+
+void testInput()
+{
+	int inputNum;
+	printf("Please input a number: ");
+	scanf("%d", &inputNum);
+	printf("\n the input is %d", inputNum);
+
+	char inputStr[20];
+	printf("\n\n Please input a string: ");
+	//if the user input a string which is too long, 
+	//this may cause crash, echo:
+	//Run-Time Check Failure #2 - Stack around the variable 'inputNum' was corrupted.
+    scanf("%s", inputStr);
+	printf("the input is %s", inputStr);
+}
+typedef struct {
+	char* name;
+	int data;
+}yxStruct;
+
+void testMalloc() {
+	//malloc for str
+	yxStruct yx;
+	yx.name = "love";
+	printf("\n before, yx.name = %s", yx.name);
+	int len = strlen(yx.name);
+	char * dest = (char*)malloc(len + 1);
+	yx.name = dest;
+	printf("\n after, yx.name = %s", yx.name);
+	int *myArray = (int*)malloc(sizeof(int) * 10);
+	yx.data = *myArray;
+	printf("\n after, yx.data = %d", yx.data);
+
+	yxStruct *yxcopy = (yxStruct*)malloc(sizeof(yxStruct));
+	//the following printf statement will cause read overflow exception
+	//as the there is no "\0" in the block, so the pc can't know where to stop.
+	//printf("\n before yxcopy.name = %s, yxcopy.data = %d", yxcopy->name, yxcopy->data);
+	yxcopy->name = "yx";
+	printf("\n before yxcopy.name = %s, yxcopy.data = %d", yxcopy->name, yxcopy->data);
+
+	yxStruct *yxArray = (yxStruct *)malloc(sizeof(yxStruct)*10);
+	memset(yxArray, '\0', sizeof(yxStruct)*10);
+	memcpy(yxcopy, yxArray, sizeof(yxStruct));
+	printf("\n after yxcopy.name = %s, yxcopy.data = %d", yxcopy->data, yxcopy->data);
+
+	free(dest);
+	dest = NULL;
+	free(yxArray);
+	yxArray = NULL;
+}
+
+void testNew()
+{
+	const int NUM = 3;
+
+	T* p1 = new T[NUM];
+	cout << hex << p1 << endl;
+    delete[] p1;
+	//delete p1;   //without "[]",the program will throw a exception when execute this
+
+	T* p2 = new T[NUM];
+	cout << p2 << endl;
+	delete[] p2;
+}
+
+
+char* getReverse(char str[]) {
+	
+	static int i = 0;
+	static int times = 0;
+	static char rev[100];
+
+	times++;
+	printf("\n getReverse enter %d", times);
+
+
+	if (*str) {
+		getReverse(str + 1);
+		rev[i++] = *str;
+	}
+
+	printf("\n return %d", times);
+
+	return rev;
+}
+
+/*
+void swapCharByArray()
+{
+char iStr[20];
+printf("Please enter the 1st string");
+get_s(iStr);
+
+printf("The 1st string is %s", iStr);
+}
+*/
+
