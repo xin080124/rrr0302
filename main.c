@@ -10,11 +10,14 @@ int testCharPointer();
 int testHeapAddress();
 int testUserInput();
 
-int testThread();
+int testSemaphoreInThread();
 int sum(int a, int b);
 
 int global_a = 10;
 int testIntArray();
+
+int testMutexInThread();
+
 
 int main(void)
 {
@@ -38,9 +41,12 @@ int main(void)
     
     //testUserInput();
 
-    //testThread();
+    //testSemaphoreInThread();
 
     testIntArray();
+	
+	testMutexInThread();
+
     return 0;
 }
 
@@ -164,7 +170,7 @@ void* helloWorld(void* arg) {
     }
 }
 
-int testThread()
+int testSemaphoreInThread()
 {
     // Result for System call
     int res = 0;
@@ -214,3 +220,55 @@ int testThread()
     exit(EXIT_SUCCESS);
 	
 }
+
+pthread_mutex_t lock;
+
+void* mutexWorld(void* arg);
+
+void* mutexWorld(void* arg) {
+    while(1) {
+        printf("Hello World wait lock \n");    
+
+        // Wait lock
+        pthread_mutex_lock(&lock);
+        printf("Hello World get lock \n");
+        pthread_mutex_unlock(&lock);
+	}
+}
+
+int testMutexInThread()
+{
+	pthread_mutex_int(&lock, NULL);
+    
+    // Create thread
+    pthread_t theMutexWorld;
+    res = pthread_create(&theMutexWorld, NULL, mutexWorld, NULL);
+    if (res) {
+        printf("Thread creation failed!!/n");
+        exit(EXIT_FAILURE);
+    }
+
+    int input;
+
+    while(1) {
+        pthread_mutex_lock(&lock);
+        
+		scanf("%d",&input);
+        printf("The user has input %d.\n",input);
+    
+	    pthread_mutex_unlock(&lock);    
+    }
+
+    // Wait for thread synchronization
+    void *threadResult;
+    res = pthread_join(theMutexWorld, &threadResult);
+    if (res) {
+        printf("Thread join failed!!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    exit(EXIT_SUCCESS);
+	
+}
+
+

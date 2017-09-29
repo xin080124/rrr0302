@@ -64,6 +64,12 @@ gdb forgdb
 set break point
 (gdb)b 3
 
+go on after break point
+(gdb)c
+
+go on only 1 step after break point
+(gdb)n or s
+
 see stack info
 (gdb)info stack
 or 
