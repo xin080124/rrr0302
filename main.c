@@ -13,6 +13,8 @@ int testUserInput();
 int testThread();
 int sum(int a, int b);
 
+int global_a = 10;
+
 
 int main(void)
 {
@@ -32,11 +34,11 @@ int main(void)
 	
     //testHeapAddress();
 	
-    //testCharPointer();
+    testCharPointer();
     
     //testUserInput();
 
-    testThread();
+    //testThread();
     return 0;
 }
 
@@ -57,11 +59,38 @@ int testCharPointer()
 {
     //use *str7,then *str7 = "z" will cause crash
     //but use str7[], it is ok    
-    char *str7 = "abc";
-    //char str7[] = "abc";
-    //char *str8 = "abc";    
+    //char *str7 = "abc";
+    char str7[] = "abc";
+
+    //if we use char *str8 = "abc"
+    //and then use printf("%s",str8) to show str8, 
+    //the system will print out "abc", but not the "abc"'s address we expected
+    //however, if we use (gdb) print str8
+    //it would show both the "abc" and where this "abc" is stored
+    //just like this:
+    //$2 = 0x8048a49 "abc"
+
+    //and the gloable variable int global_a is stored in this adress
+    //again we see it by typing cmd in gdb
+    //(gdb)print &global_a
+    //$4 = (int*) 0x804a034 
+   
+    //and we also can see the stack address by info frame cmd
+    //which give out a result like this:
+    //stack level 0, frame at 0xbffff2c
+    //compare $2 and $4, and stack frame address
+    //we can see clearly that the "abc" 's address is closer to global_a, so that the const string is not stored in stack
+    //that is also why pointers point to the same constant variable has the same value
+
+    //however, (gdb)print str7 will not give out an address value
+    //because str7 is the name of array, it is not a left-value
+    //the compiler just ignore this symbol and does not allocate any space to stroe it.
+
+    //so although str7 and str8 are both set with "abc", they are totally different in memory.
+     
+    char *str8 = "abc";    
     printf("\n str7 = 0x%x \n",(int)str7);   
-    //printf("str8 = 0x%x \n",(int)str8);   
+    printf("str8 = 0x%x \n",(int)str8);   
 
     //*str7 = "z"; 
 
