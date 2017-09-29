@@ -238,7 +238,9 @@ void* mutexWorld(void* arg) {
 
 int testMutexInThread()
 {
-	pthread_mutex_int(&lock, NULL);
+    int res = 0;
+
+    pthread_mutex_init(&lock, NULL);
     
     // Create thread
     pthread_t theMutexWorld;
