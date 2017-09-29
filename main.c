@@ -14,7 +14,7 @@ int testThread();
 int sum(int a, int b);
 
 int global_a = 10;
-
+int testIntArray();
 
 int main(void)
 {
@@ -39,6 +39,8 @@ int main(void)
     //testUserInput();
 
     //testThread();
+
+    testIntArray();
     return 0;
 }
 
@@ -53,6 +55,34 @@ int sum(int a, int b)
 	int total=0;
 	total = a + b;
 	return total;
+}
+
+int testIntArray()
+{
+    //{1,2,3} is different from "abc"
+    //if we use (gdb) disas testIntArray, we can see that {1,2,3} is stored in stack frame. not beside the global variable
+    //not readonly
+    //so its value can be changed.
+    //although we don't have a particular space to store num7
+    //the compiler substitute all the num7 symbol with the address in stack, so that *num7 + =5 still make sense.
+    //however, num7 is yet not a lvalue
+    //so it can't be the operand for any operation.
+    //this limit is the same with string array name
+    //and, in fact, all of the arrays of any type.  
+    
+    //so, for any type of array
+    //you can do whatever you like to its content
+    //however, no operation is allowed for the array name
+    //it can be seen as a pointer when you access to its content
+    //but you can't access itself like you access a pointer
+    //this is the difference
+    int num7[] = {1,2,3};
+    num7[0]+=1;
+    *num7 += 5;
+    //num7 ++;  //illegal
+
+    printf("\n num7[0] is set to %d",num7[0]);
+    return 0;
 }
 
 int testCharPointer()
