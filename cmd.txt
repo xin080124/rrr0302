@@ -51,6 +51,9 @@ git fetch
 git merge
 
 
+create for multi-threading:
+gcc -g -pthread main.c
+//notice, use -pthread, not -lpthread for gcc after version 4.6
 
 
 gdb
@@ -70,10 +73,15 @@ go on after break point
 see the value on a specified location
 gdb x 0x12345678
 
+//x means examine
+
 (gdb) print str8
 $1 = 0x8048ca0 "abc"
 (gdb) x 0x8048ca0
 0x8048ca0:     0x00636261
+
+see the next 10 unit memory together
+(gdb)x /10x str8
 
 go on only 1 step after break point
 (gdb)n or s
