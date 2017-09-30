@@ -67,6 +67,14 @@ set break point
 go on after break point
 (gdb)c
 
+see the value on a specified location
+gdb x 0x12345678
+
+(gdb) print str8
+$1 = 0x8048ca0 "abc"
+(gdb) x 0x8048ca0
+0x8048ca0:     0x00636261
+
 go on only 1 step after break point
 (gdb)n or s
 
@@ -97,6 +105,10 @@ linux cmd
 
 delete file:
 rm -rf xxx
+
+copy file
+cp file
+
 
 
 test on unitecPC branch
