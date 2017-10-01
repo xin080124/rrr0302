@@ -1,73 +1,61 @@
-/**//*
-    (C) OOMusou 2006 http://oomusou.cnblogs.com
-
-     Filename : pthread_create_semaphore.cpp
-     Compiler : gcc 4.10 on Fedora 5 / gcc 3.4 on Cygwin 1.5.21
-     Description : Demo how to create thread with semaphore in Linux.
-     Release : 12/03/2006
-     Compile : g++ -lpthread pthread_create_semaphore.cpp
-    */
-#include <stdio.h> // printf(),
-#include <stdlib.h> // exit(), EXIT_SUCCESS
-#include <pthread.h> // pthread_create(), pthread_join()
-#include <semaphore.h> // sem_init()
-
-sem_t binSem;
-
-void* helloWorld(void* arg);
-
-int main() {
- // Result for System call
-int res = 0;
-
- // Initialize semaphore
- res = sem_init(&binSem, 0, 0);
-if (res) {
- printf("Semaphore initialization failed!!/n");
- exit(EXIT_FAILURE);
+#include <stdio.h>
+void nzp(int v){
+if(v>0)
+printf("%d ",v);
+else
+printf("%d ",0);
+}
+int main(void){
+int a[5],i;
+printf("input 5 numbers\n");
+for(i=0;i<5;i++){
+scanf("%d",&a[i]);
+nzp(a[i]);
+}
+return 0;
 }
 
- // Create thread
- pthread_t thdHelloWorld;
- res = pthread_create(&thdHelloWorld, NULL, helloWorld, NULL);
-if (res) {
- printf("Thread creation failed!!/n");
- exit(EXIT_FAILURE);
- }
 
-while(1) {
- // Post semaphore
- sem_post(&binSem);
- printf("In main, sleep several seconds./n");
-sleep(1);
+#include <stdio.h>
+float aver(float a[5]){
+int i;
+float av,s=a[0];
+for(i=1;i<5;i++)
+s=s+a[i];
+av=s/5;
+return av;
+}
+int main(void){
+float sco[5],av;
+int i;
+printf("\ninput 5 scores:\n");
+for(i=0;i<5;i++)
+scanf("%f",&sco[i]);
+av=aver(sco);
+printf("average score is %5.2f",av);
+return 0;
 }
 
- // Wait for thread synchronization
- void *threadResult;
- res = pthread_join(thdHelloWorld, &threadResult);
-if (res) {
- printf("Thread join failed!!/n");
- exit(EXIT_FAILURE);
-}
-
- exit(EXIT_SUCCESS);
-}
-
-void* helloWorld(void* arg) {
-while(1) {
- // Wait semaphore
-sem_wait(&binSem);
-printf("Hello World/n");
+#include <stdio.h>
+void nzp(int a[5]){
+int i;
+printf("\nvalues of array a are:\n");
+for(i=0;i<5;i++){
+if(a[i]<0) a[i]=0;
+printf("%d ",a[i]);
 }
 }
-
-[root@localhost semaphore]# gcc semaphore.c -lpthread
-[root@localhost semaphore]# ./a.out
-In main, sleep several seconds.
-Hello World
-In main, sleep several seconds.
-Hello World
-In main, sleep several seconds.
-Hello World
-In main, sleep several seconds.
-Hello World
+int main(void){
+int b[5],i;
+printf("\ninput 5 numbers:\n");
+for(i=0;i<5;i++)
+scanf("%d",&b[i]);
+printf("initial values of array b are:\n");
+for(i=0;i<5;i++)
+printf("%d ",b[i]);
+nzp(b);
+printf("\nlast values of array b are:\n");
+for(i=0;i<5;i++)
+printf("%d ",b[i]);
+return 0;
+}
