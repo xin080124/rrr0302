@@ -15,6 +15,9 @@ int sum(int a, int b);
 
 int global_a = 10;
 int testIntArray();
+int testArrayAddress();
+
+void myBubbleSort(int[]);
 
 int testMutexInThread();
 
@@ -47,6 +50,8 @@ int main(void)
 	
 	testMutexInThread();
 
+	testArrayAddress();
+	
     return 0;
 }
 
@@ -270,6 +275,37 @@ int testMutexInThread()
     }
 
     exit(EXIT_SUCCESS);
+	
+}
+
+int testArrayAddress()
+{
+	int arr = {0,2,1,1,6,2,5,4,8,4};
+	
+	print("arr = 0x%x,&arr = 0x%x",arr,&arr)
+	print("arr+1 = 0x%x,&arr+1 = 0x%x",arr+1,&arr+1)
+	
+	myBubbleSort(arr);
+	
+	return 0;
+}
+
+void myBubbleSort(int array[])
+{
+	int len = sizeof(array);
+	int temp;
+	for(int i = 0; i<len; i++)
+	{
+		for(int j=i+1;j<len;j++)
+		{
+			if(array[i]>array[j])
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+		}
+	}		
 	
 }
 
