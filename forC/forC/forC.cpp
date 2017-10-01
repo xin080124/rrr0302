@@ -24,8 +24,17 @@ char* getReverse(char str[]);
 void Hannoi(int n, char source, char dest, char temp);
 
 void testMalloc();
-
 void testNew();
+
+void nzp(int v);
+int testPassByArrayElement();
+
+float aver(float a[5]);
+int testPassByArrayName();
+
+int test2DimArray();
+//int op2DimArray(int **);
+int op2DimArray(int p[][4]);
 
 int main()
 {
@@ -75,16 +84,21 @@ int main()
 	//testVirtual->showCallOrder();
 
 	//swapCharByArray();
-	testInput();
+	//testInput();
 
-	getReverse("abcde");
+	//getReverse("abcde");
 
 	//Hannoi(3);
-	Hannoi(3, 'A', 'C', 'B');
+	//Hannoi(3, 'A', 'C', 'B');
 
-	testMalloc();
+	//testMalloc();
 
-	testNew();
+	//testNew();
+
+	//testPassByArrayElement();
+	//testPassByArrayName();
+
+	test2DimArray();
 
 	return 0;
 }
@@ -253,6 +267,59 @@ char* getReverse(char str[]) {
 	printf("\n return %d", times);
 
 	return rev;
+}
+
+int testPassByArrayElement()
+{
+	int a[5], i;
+	printf("input 5 numbers\n");
+	for (i = 0; i<5; i++) {
+		scanf("%d", &a[i]);
+		nzp(a[i]);
+	}
+	return 0;
+}
+
+void nzp(int v) {
+	if (v>0)
+		printf("%d ", v);
+	else
+		printf("%d ", 0);
+}
+
+int testPassByArrayName()
+{
+	float sco[5], av;
+	int i;
+	printf("\ninput 5 scores:\n");
+	for (i = 0; i<5; i++)
+		scanf("%f", &sco[i]);
+	av = aver(sco);//pass by array name
+	printf("average score is %5.2f", av);
+	return 0;
+}
+
+float aver(float a[5]) {
+	int i;
+	float av, s = a[0];
+	for (i = 1; i<5; i++)
+		s = s + a[i];
+	av = s / 5;
+	return av;
+}
+
+int test2DimArray()
+{
+	int a[3][4];
+	//op2DimArray((int**)a);
+	op2DimArray(a);
+	return 0;
+}
+
+//int op2DimArray(int **)   //this is build ok
+int op2DimArray(int p[][4])
+{
+	return 0;
 }
 
 /*

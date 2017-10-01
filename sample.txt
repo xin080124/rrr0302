@@ -25,6 +25,7 @@ s=s+a[i];
 av=s/5;
 return av;
 }
+
 int main(void){
 float sco[5],av;
 int i;
