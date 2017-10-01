@@ -36,6 +36,8 @@ int test2DimArray();
 //int op2DimArray(int **);
 int op2DimArray(int p[][4]);
 
+void myGetReverse(char sour[], int len);
+
 int main()
 {
 	printf("hello, vc++");
@@ -88,6 +90,12 @@ int main()
 
 	//getReverse("abcde");
 
+	char * strForRev = "abcde";
+	myGetReverse(strForRev, 5);
+
+	strForRev = "fghjk";
+	myGetReverse(strForRev, 5);
+
 	//Hannoi(3);
 	//Hannoi(3, 'A', 'C', 'B');
 
@@ -98,7 +106,7 @@ int main()
 	//testPassByArrayElement();
 	//testPassByArrayName();
 
-	test2DimArray();
+	//test2DimArray();
 
 	return 0;
 }
@@ -248,10 +256,32 @@ void testNew()
 	delete[] p2;
 }
 
+void myGetReverse(char sour[], int len)
+{
+	static int i = 0;
+	static char rev[100];
+	
+	if(sour)
+	{
+		printf("\n myGetReverse len = %d", len);
+		printf("\n myGetReverse i = %d", i);
+
+		if(len>=1)
+		{
+			rev[i] = sour[len - 1];//get the last char and store it in rev[i]
+			i++;
+			myGetReverse(sour, len - 1);
+			
+		}
+	}
+
+	return;
+}
 
 char* getReverse(char str[]) {
 	
-	static int i = 0;
+	static int i = 0;//this has a defect: it can only reverse one string in  
+	//the application's life circle 
 	static int times = 0;
 	static char rev[100];
 
@@ -260,8 +290,8 @@ char* getReverse(char str[]) {
 
 
 	if (*str) {
-		getReverse(str + 1);
-		rev[i++] = *str;
+		getReverse(str + 1);//go on checking if it is the rare of the string
+		rev[i++] = *str;//meet rear
 	}
 
 	printf("\n return %d", times);
@@ -296,14 +326,20 @@ int testPassByArrayName()
 		scanf("%f", &sco[i]);
 	av = aver(sco);//pass by array name
 	printf("average score is %5.2f", av);
+	//by breaking here we can see  that every element in sco has been changed.
 	return 0;
 }
 
 float aver(float a[5]) {
 	int i;
 	float av, s = a[0];
-	for (i = 1; i<5; i++)
+	for (i = 1; i < 5; i++)
+	{
 		s = s + a[i];
+		a[i] = s;
+		printf("\n a[%d] change to %5.2f",i, a[i]);
+	}
+		
 	av = s / 5;
 	return av;
 }
