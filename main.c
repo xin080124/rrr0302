@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include<stdbool.h> //bool
 #include<string.h> 
 
 #include <stdio.h> // printf(),
@@ -20,6 +20,11 @@ int testArrayAddress();
 void myBubbleSort(int[], int len);
 
 int testMutexInThread();
+
+int testShift(int num);
+
+int findPrime();
+
 
 
 int main(void)
@@ -50,8 +55,13 @@ int main(void)
 	
 	//testMutexInThread();
 
-	testArrayAddress();
+    //testArrayAddress();
 	
+    //testShift(14);
+
+    findPrime();
+
+
     return 0;
 }
 
@@ -316,4 +326,58 @@ void myBubbleSort(int array[],int len)
 	
 }
 
+int testShift(int num)
+{
+    int res;
+    res = num>>1;
+    printf("num right shift 1 is %d \n",res);
 
+    res = num<<1;
+    printf("num left shift 1 is %d \n",res);
+
+}
+
+int findPrime()
+{
+    int *find = (int*)malloc(100*sizeof(int));
+    memset(find,0,100*sizeof(int));    
+    
+    int index = 0;
+    for(index=0;index<=100;index++)
+        find[index]=200;
+
+    int k=0;    
+    find[k]=2;
+    int num = 2;
+
+    int factor=0;
+    for(num=3;num<=200;num++)
+    {
+        //printf("\n the num is %d",num);
+        int j=0; 
+        bool hasFactor = false;
+        for(j=0;find[j] < num; j++)
+        {
+            factor = find[j];
+            printf("\n the factor is %d",factor);
+            //printf("\n the j is %d",j);
+            
+            if(factor>num)
+                break;
+
+            //printf("\n the j is %d",j);
+            if(num%factor == 0)
+            {
+                 hasFactor = true;
+                 break;
+            }
+        }
+        if(!hasFactor)
+        {
+            k++;
+            find[k]=num;        
+            printf("\n the %d th prime number is %d",k,find[k]);
+        } 
+    }
+    return 0;
+}
