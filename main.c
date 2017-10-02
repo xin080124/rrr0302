@@ -17,7 +17,7 @@ int global_a = 10;
 int testIntArray();
 int testArrayAddress();
 
-void myBubbleSort(int[]);
+void myBubbleSort(int[], int len);
 
 int testMutexInThread();
 
@@ -46,9 +46,9 @@ int main(void)
 
     //testSemaphoreInThread();
 
-    testIntArray();
+    //testIntArray();
 	
-	testMutexInThread();
+	//testMutexInThread();
 
 	testArrayAddress();
 	
@@ -280,23 +280,28 @@ int testMutexInThread()
 
 int testArrayAddress()
 {
-	int arr = {0,2,1,1,6,2,5,4,8,4};
+	int arr[] = {0,2,1,1,6,2,5,4,8,4};
 	
-	print("arr = 0x%x,&arr = 0x%x",arr,&arr)
-	print("arr+1 = 0x%x,&arr+1 = 0x%x",arr+1,&arr+1)
+	printf("\n arr = 0x%x,&arr = 0x%x",arr,&arr);
+	printf("\n arr+1 = 0x%x,&arr+1 = 0x%x \n",arr+1,&arr+1);
 	
-	myBubbleSort(arr);
+        int len = sizeof(arr)/sizeof(arr[0]);
+	myBubbleSort(arr,len);
 	
 	return 0;
 }
 
-void myBubbleSort(int array[])
+void myBubbleSort(int array[],int len)
 {
-	int len = sizeof(array);
-	int temp;
-	for(int i = 0; i<len; i++)
+	//int len = sizeof(array);
+	
+        printf("\n len = %d \n",len);
+
+        int temp;
+        int i,j;
+	for(i = 0; i<len; i++)
 	{
-		for(int j=i+1;j<len;j++)
+		for(j=i+1;j<len;j++)
 		{
 			if(array[i]>array[j])
 			{
@@ -305,6 +310,8 @@ void myBubbleSort(int array[])
 				array[j] = temp;
 			}
 		}
+   	  printf("\n array[%d] = %d \n",i,array[i]);
+
 	}		
 	
 }
