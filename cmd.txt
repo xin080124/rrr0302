@@ -55,6 +55,8 @@ create for multi-threading:
 gcc -g -pthread main.c
 //notice, use -pthread, not -lpthread for gcc after version 4.6
 
+build more than one file
+gcc -g gpthread main.c yxAlgorithm.c -o 171004
 
 gdb
 
