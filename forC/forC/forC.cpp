@@ -90,11 +90,14 @@ int main()
 
 	//getReverse("abcde");
 
+	/*
 	char * strForRev = "abcde";
 	myGetReverse(strForRev, 5);
 
 	strForRev = "fghjk";
 	myGetReverse(strForRev, 5);
+	*/
+	
 
 	//Hannoi(3);
 	//Hannoi(3, 'A', 'C', 'B');
@@ -106,7 +109,7 @@ int main()
 	//testPassByArrayElement();
 	//testPassByArrayName();
 
-	//test2DimArray();
+	test2DimArray();
 
 	return 0;
 }
@@ -348,6 +351,14 @@ int test2DimArray()
 {
 	int a[3][4];
 	//op2DimArray((int**)a);
+
+	int b[2][4] = { 1,2,3,4,5,6,7,8 };
+	printf("the address of 2 dim array b is %d \n",(int)b);
+	printf("the address b[0] is %d \n", (int)(b[0]));
+	printf("the address b[1] is %d \n", (int)(b[1]));
+	printf("the address b[0]+1 is %d \n", (int)(b[0]+1));
+	printf("the address *(b+0)+1  is %d \n", (int)(*(b + 0) + 1));
+
 	op2DimArray(a);
 	return 0;
 }
