@@ -6,7 +6,7 @@
 #include <pthread.h> // pthread_create(), pthread_join()
 #include <semaphore.h> // sem_init()
 
-#include"yxAlgorithm"
+#include"yxAlgorithm.h"
 
 int testCharPointer();
 int testHeapAddress();

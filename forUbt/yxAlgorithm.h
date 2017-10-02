@@ -1,6 +1,6 @@
 #ifndef YX_ALGORITHM_H
 
-#def YX_ALGORITHM_H
+#define YX_ALGORITHM_H
 
 
 #include<stdbool.h> //bool
@@ -11,7 +11,7 @@
 #include <pthread.h> // pthread_create(), pthread_join()
 #include <semaphore.h> // sem_init()
 
-typedef void (* yxSearch)(int targetNum, int sortedArray[]);
+typedef int (* yxSearch)(int targetNum, int sortedArray[]);
 
 
 int binarySearchRecursive(int *arr);
