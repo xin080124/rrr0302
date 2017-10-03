@@ -1,3 +1,33 @@
+int BSearch(elemtype a[],elemtype x,int low,int high)
+/*在下届为low，上界为high的数组a中折半查找数据元素x*/
+{
+int mid;
+if(low>high) return -1;
+mid=(low+high)/2;
+if(x==a[mid]) return mid;
+if(x<a[mid]) return(BSearch(a,x,low,mid-1));
+else return(BSearch(a,x,mid+1,high));
+}
+2) 非递归方法实现：
+int BSearch(elemtype a[],keytype key,int n)
+{
+int low,high,mid;
+low=0;high=n-1;
+while(low<=high) 
+{
+mid=(low+high)/2;
+if(a[mid].key==key) return mid;
+else if(a[mid].key<key) low=mid+1;
+else high=mid-1;
+}
+return -1;
+}
+
+
+
+
+
+
 #include <stdio.h>
 void nzp(int v){
 if(v>0)
