@@ -14,9 +14,9 @@
 typedef int (* yxSearch)(int targetNum, int sortedArray[]);
 
 
-int binarySearchRecursive(int *arr);
+int binarySearchRecursive(int targetNum,int *arr);
 
-int binarySearchNormal(int *arr);
+int binarySearchNormal(int targetNum,int *arr);
 
 int testSearch(yxSearch);
 
