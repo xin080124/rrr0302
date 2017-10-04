@@ -64,9 +64,12 @@ int main(void)
 
     findPrime();
 
-    testSearch(binarySearchRecursive);
-	testSearch(binarySearchNormal);
+    //testSearch(binarySearchRecursive);
+    //testSearch(binarySearchNormal);
 	
+    testSearch(insertSearch);
+	
+
 	testPrintfAndAscii();
 	
     return 0;

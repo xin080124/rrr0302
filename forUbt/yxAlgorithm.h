@@ -18,6 +18,9 @@ int binarySearchRecursive(int targetNum,int *arr);
 
 int binarySearchNormal(int targetNum,int *arr);
 
+int insertSearch(int targetNum,int *arr);
+
+
 int testSearch(yxSearch);
 
 #endif

@@ -4,13 +4,16 @@
 static int BSearchR(int a[],int x,int low,int high);
 static int BSearch(int a[],int key,int n);
 
+static int interpolationSearch(int arr[], int n, int x);
+
+
 int testSearch(yxSearch pfunc)
 {
 	//assert yxSearch
 	int myArray[] = {1,2,3,4,6,8};
 	int res = pfunc(4,myArray);
 
-    printf("\n the res of binary search is %05d \n",res);
+    printf("\n the res of search is %05d \n",res);
 	return res;
 }
 
@@ -28,10 +31,10 @@ int binarySearchNormal(int targetNum,int *arr)
     return res;
 }
 
-int insertSearch(int targetNum,int n,int *arr)
+int insertSearch(int targetNum,int *arr)
 {
 	int res = 0;
-	res = interpolationSearch(arr, n, targetNum);
+	res = interpolationSearch(arr, 6, targetNum);
     return res;
 }
 
