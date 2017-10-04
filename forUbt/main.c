@@ -27,6 +27,7 @@ int testShift(int num);
 
 int findPrime();
 
+void testPrintfAndAscii();
 
 
 int main(void)
@@ -64,6 +65,9 @@ int main(void)
     findPrime();
 
     testSearch(binarySearchRecursive);
+	testSearch(binarySearchNormal);
+	
+	testPrintfAndAscii();
 	
     return 0;
 }
@@ -302,6 +306,17 @@ int testArrayAddress()
 	myBubbleSort(arr,len);
 	
 	return 0;
+}
+
+void testPrintfAndAscii()
+{
+	char chA = 'A';
+	char cha = 'a';
+	printf("chA = %d",int(chA));
+	printf("chA 02d format = %02d",int(chA));
+	printf("chA 05d format = %05d",int(chA));
+	
+	printf("cha = %d",int(cha));
 }
 
 void myBubbleSort(int array[],int len)
