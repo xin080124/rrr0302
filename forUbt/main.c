@@ -64,9 +64,9 @@ int main(void)
 	
     //testShift(14);
 
-    testfgets(void);
+    testfgets();
 	
-	findPrime();
+//	findPrime();
 
     //testSearch(binarySearchRecursive);
     //testSearch(binarySearchNormal);
@@ -362,7 +362,7 @@ int testShift(int num)
 
 }
 
-#define  MAX_LEN  100
+#define  MAX_LEN  10
 
 int testfgets(void)
 {
@@ -372,7 +372,7 @@ int testfgets(void)
    stream = fopen("testfgets.txt","rb");
  
    if ((result = fgets(line,MAX_LEN,stream)) != NULL)
-       printf("The string is %s\n", result);
+       printf("The string is \"%s\"\n", result);
  
    if (fclose(stream))
        perror("fclose error");
