@@ -312,11 +312,11 @@ void testPrintfAndAscii()
 {
 	char chA = 'A';
 	char cha = 'a';
-	printf("chA = %d",int(chA));
-	printf("chA 02d format = %02d",int(chA));
-	printf("chA 05d format = %05d",int(chA));
+	printf("\n chA = %d",(int)chA);
+	printf("\n chA 02d format = %02d",(int)chA);
+	printf("\n chA 05d format = %05d",(int)chA);
 	
-	printf("cha = %d",int(cha));
+	printf("\n cha = %d",(int)cha);
 }
 
 void myBubbleSort(int array[],int len)
