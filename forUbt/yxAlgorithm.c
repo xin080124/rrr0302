@@ -39,7 +39,7 @@ int insertSearch(int targetNum,int n,int *arr)
 
 static int interpolationSearch(int arr[], int n, int x)
 {
-	    // Find indexes of two corners
+	// Find indexes of two corners
     int lo = 0, hi = (n - 1);
  
     // Since array is sorted, an element present
