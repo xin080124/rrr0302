@@ -3,8 +3,6 @@
 
 static int BSearchR(int a[],int x,int low,int high);
 static int BSearch(int a[],int key,int n);
-static int interpolationSearch(int arr[], int n, int x);
-
 
 int testSearch(yxSearch pfunc)
 {
@@ -69,6 +67,8 @@ static int interpolationSearch(int arr[], int n, int x)
 
 static int BSearchR(int a[],int x,int low,int high)
 {
+    printf("\n BSearchR low = %d high = %d \n",low,high);
+
 	int mid;
 	if(low>high) return -1;
 	mid=(low+high)/2;
@@ -87,6 +87,7 @@ static int BSearch(int a[],int key,int n)
 		if(a[mid]==key) return mid;
 		else if(a[mid]<key) low=mid+1;
 		else high=mid-1;
+            printf("\n BSearch low = %d high = %d \n",low,high);
 	}
 	return -1;
 }
