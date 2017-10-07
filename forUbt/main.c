@@ -27,6 +27,8 @@ int testShift(int num);
 
 int findPrime();
 
+int testfgets(void);
+
 void testPrintfAndAscii();
 
 
@@ -62,7 +64,9 @@ int main(void)
 	
     //testShift(14);
 
-    findPrime();
+    testfgets(void);
+	
+	findPrime();
 
     //testSearch(binarySearchRecursive);
     //testSearch(binarySearchNormal);
@@ -357,6 +361,23 @@ int testShift(int num)
     printf("num left shift 1 is %d \n",res);
 
 }
+
+#define  MAX_LEN  100
+
+int testfgets(void)
+{
+   FILE *stream;
+   char line[MAX_LEN], *result;
+ 
+   stream = fopen("testfgets.txt","rb");
+ 
+   if ((result = fgets(line,MAX_LEN,stream)) != NULL)
+       printf("The string is %s\n", result);
+ 
+   if (fclose(stream))
+       perror("fclose error");
+}
+
 
 int findPrime()
 {
