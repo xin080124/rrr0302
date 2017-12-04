@@ -220,4 +220,122 @@ FROM [localcover-55:lc_api_show.005_AccumulatedClaimCostForMonth]   as a
    //WHERE salesWeek = a01.SalesWeek
    //ORDER BY LRDiv desc
          
+x008_actualLRBasedOnMarkedVersion  
 
+SELECT MthSales,  cTimestamp, Prem, ActualLR0,ActualLR1,ActualLR2,ActualLR3,ActualLR4,ActualLR5,ActualLR6,
+ActualLR7,ActualLR8,ActualLR9,ActualLR10,ActualLR11,
+//MthClaims, 
+DeviationTag, DiffFromExpected, 
+//DiffWithActual
+FROM calcDeviationTag(
+
+SELECT c.MthSales as MthSales, c.Premium as Prem, c.ClaimCost as ClaimCost, 
+  c.M0 as cM0, e.Month0 as eM0, c.M1 as cM1,e.Month1 as eM1,  c.M2 as cM2, e.Month2 as eM2, 
+  c.M3 as cM3, c.M4 as cM4, c.M5 as cM5, c.M6 as cM6, 
+  c.M7 as cM7, c.M8 as cM8, c.M9 as cM9, c.M10 as cM10, c.M11 as cM11, 
+     e.Month3 as eM3, e.Month4 as eM4, e.Month5 as eM5, e.Month6 as eM6, 
+  e.Month7 as eM7, e.Month8 as eM8, e.Month9 as eM9, e.Month10 as eM10, e.Month11 as eM11, e.Month12 as eM12,
+FROM 
+  [localcover-55:lc_api_show.005_accClaimCostMaskVersion]  as c
+FULL OUTER JOIN EACH
+  [localcover-55:lc_api_show.004_accFailureDistribution]  as e
+ON c.YrSales = e.YrSales
+
+) as assoc
+ORDER BY MthSales, MthClaims asc
+
+const MONTHS = 12
+//for the available data for month, range from 1 to 12, for different snapshot of month
+const AMONTHS = 11
+const LOCALCOVER_EPOCH = new Date('2016-01-01T00:00:00Z')
+
+function calcDeviationTag(row, emit) {
+  let claimCount = new Array(MONTHS).fill(0)
+  const MonthToMilliSecConversionFactor = 30 * 24 * 60 * 60 * 1000;
+  let c = {
+          'MthSales': row.MthSales,
+        }
+  
+  for (let i = 0; i < MONTHS; i++) {
+    //if (row.MthSales + i === AMONTHS) {
+      let actualMonth = 'cM' + i
+      let preMonth = 'cM' + (i - 1)
+      //let expectedMonth = 'eM' + i
+      let distribution = 'eM' + i
+      let expectedMonth = 0.7
+      //let a = row[actualMonth] - row[expectedMonth]
+      let LR = row[actualMonth]/(row.Prem*row[distribution])
+      let LRDiv = LR-0.7
+      //let b = row[actualMonth] - row[preMonth]
+      
+      //if (LRDiv > 0) {
+        
+        let Timestamp = new Date(LOCALCOVER_EPOCH.getTime() + MonthToMilliSecConversionFactor * (row.MthSales * 13 + i))
+        c.MthClaims = i
+        c.cTimestamp = Timestamp
+        c.Prem = row.Prem
+        if (LRDiv > 0)
+            c.DeviationTag = true
+        else
+            c.DeviationTag = false
+        c.DiffFromExpected = LRDiv
+        //c.DiffWithActual = b
+      
+        //for (let i = 0; (i<= MONTHS) && (row.MthSales + row.MthClaim <= MONTHS); i++){
+        //for (let columnIndex = 0; (columnIndex<= MONTHS) ; columnIndex++){  
+       
+            let name = 'ActualLR' + i
+            c[name] = LR
+        //}
+       
+      }
+      emit(c)
+}
+
+function inputFields() {
+  let inputFields = [
+    'MthSales',
+    'Prem',
+  ]
+
+  for (let i = 0; i < MONTHS; i++) {
+    let name = 'cM' + i
+    inputFields.push(name)
+  }
+  for (let i = 0; i <= MONTHS; i++) {
+    let name = 'eM' + i
+    inputFields.push(name)
+  }
+  return inputFields
+}
+
+function outputFields() {
+  let outputFields = [
+    { name: 'MthSales', type: 'integer' },
+    { name: 'Prem', type: 'float' },
+    //{ name: 'Claims', type: 'integer' },
+    { name: 'MthClaims', type: 'integer' },
+    { name: 'cTimestamp', type: 'timestamp' },
+    { name: 'DeviationTag', type: 'boolean' },
+    { name: 'DiffFromExpected', type: 'float' },
+    //{ name: 'DiffWithActual', type: 'float' }
+   
+  ]
+  
+   for (let i = 0; i < MONTHS; i++) {
+        let m = {name: 'ActualLR' + i, type: 'float'}
+       outputFields.push(m);
+   }
+     
+  return outputFields
+}
+
+bigquery.defineFunction(
+  'calcDeviationTag',
+
+  inputFields(),
+
+  outputFields(),
+
+  calcDeviationTag
+)
