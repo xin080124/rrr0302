@@ -126,12 +126,89 @@ SELECT YrSales, MthSales, sum(Premium) as Premium, sum(ClaimCost) as ClaimCost, 
 //SELECT debug1, debug2,  YrSales, MthSales, ClaimCost, Month1, Month2, Month3, Month4
    FROM  withclaimCostByMonth(SELECT YrSales, MthSales, SUM(Premium_exGst) AS Premium, SUM(ClaimCost) AS ClaimCost, MthClaim
    FROM [localcover-55:lc_api_show.001InitialAssocTable]
-   WHERE YrSales = 2016 AND MthSales <= 9
-   GROUP BY YrSales, MthSales, MthCla
+   WHERE YrSales = 2016
+   GROUP BY YrSales, MthSales, MthClaim
    ORDER BY YrSales, MthSales, MthClaim
    
    ) as s
  GROUP BY YrSales, MthSales
  ORDER BY YrSales, MthSales
+ 
+ const MONTHS = 12
+const AMONTHS = 12
+const LOCALCOVER_EPOCH = new Date('2016-01-01T00:00:00Z');
+
+
+function accum(index,valueArray){
+    total = 0
+    while(index>-1)
+    {
+        total += valueArray[index] 
+        index--
+    }
+    return total
+}
+
+function withclaimCostByMonth(row, emit) {
+    let claimCost = new Array(MONTHS).fill(0)
+
+    let c = {
+        'YrSales': row.YrSales,
+        'MthSales': row.MthSales,
+        'Premium': row.Premium,
+        'ClaimCost': row.ClaimCost,
+    }
+    for (let i = 0; i<= MONTHS; i++){
+        claimCost[i] = 0
+        if ((row.MthClaim === i)&& (row.MthSales + row.MthClaim <= AMONTHS)) 
+        {
+            claimCost[i] = row.ClaimCost
+        }
+        let name = 'Month' + i
+        //c[name] = claimCost[i]   
+        //accum(0,claimCount)
+        c['debug1'] = row.MthSales
+        c['debug2'] = row.MthClaim
+        
+        if(row.MthSales + row.MthClaim > AMONTHS)
+        //    c[name] = accum(i,claimCost)
+              c[name] = 0.0
+        else
+            c[name] = accum(i,claimCost)
+    }
+    emit(c)
+
+}
+
+function outputFields() {
+    let outputFields = [
+        {name: 'YrSales', type: 'integer'},
+        {name: 'MthSales', type: 'integer'},
+        {name: 'Premium', type: 'float'},
+        {name: 'ClaimCost', type: 'float' },
+        {name: 'debug1', type: 'integer'},
+        {name: 'debug2', type: 'integer' },
+    ];
+    for (let i = 0; i <= MONTHS; i++) {
+        let m = {name: 'Month' + i, type: 'float'}
+        outputFields.push(m);
+    }
+    return outputFields;
+}
+
+bigquery.defineFunction(
+    'withclaimCostByMonth',
+    [
+        'YrSales',
+        'MthSales',
+        'Premium',
+        'ClaimCost',
+        'MthClaim'
+    ],
+
+    outputFields(),
+
+    withclaimCostByMonth
+)
 
 
