@@ -212,12 +212,108 @@ SELECT  a.YrSales, a.MthSales,a.Premium,a.ClaimCost,a.Month0*m.Month0 as M0, a.M
 a.Month3*m.Month3 as M3, a.Month4*m.Month4 as M4, a.Month5*m.Month5 as M5,
 a.Month6*m.Month6 as M6, a.Month7*m.Month7 as M7, a.Month8*m.Month8 as M8,
 a.Month9*m.Month9 as M9, a.Month10*m.Month10 as M10, a.Month11*m.Month11 as M11
-FROM [localcover-55:lc_api_show.005_AccumulatedClaimCostForMonth_12]  as a
+FROM [localcover-55:lc_api_show.005_AccumulatedClaimCostForMonth]   as a
    LEFT OUTER JOIN 
-   [localcover-55:lc_api_show.006_maskTable_9]  as m
+   [localcover-55:lc_api_show.006_maskTable_9] as m
    ON a.MthSales = m.MthSales
    //WHERE salesWeek = a01.SalesWeek
    //ORDER BY LRDiv desc
    
+006create Mask table
 
+SELECT  MthSales, Month0, Month1, Month2, Month3, Month4, Month5, Month6,
+Month7, Month8, Month9,Month10, Month11, Month12, debug1, debug2
+
+   FROM  createMaskTable(SELECT MthSales, SUM(Premium_exGst) AS Premium, SUM(ClaimCost) AS ClaimCost
+   FROM [localcover-55:lc_api_show.001InitialAssocTable]
+   WHERE YrSales = 2016
+   GROUP BY MthSales
+   ORDER BY MthSales
+   
+   ) as s
+
+   
+   const MONTHS = 12
+const AMONTHS = 9
+const LOCALCOVER_EPOCH = new Date('2016-01-01T00:00:00Z');
+
+
+function accum(index,valueArray){
+    total = 0
+    while(index>-1)
+    {
+        total += valueArray[index] 
+        index--
+    }
+    return total
+}
+
+function createMaskTableExample(row, emit) {
+    let claimCost = new Array(MONTHS).fill(0)
+    
+    let c = {
+        //'YrSales': row.YrSales,
+        'MthSales': row.MthSales,
+        //'Premium': row.Premium,
+        //'ClaimCost': row.ClaimCost,
+    }
+    for (let i = 0; i<= MONTHS; i++){
+        claimCost[i] = 0
+        if (row.MthSales + i <= AMONTHS) 
+        {
+            claimCost[i] = 1
+        }
+        let name = 'Month' + i
+        //c[name] = claimCost[i]   
+        //accum(0,claimCount)
+        c['debug1'] = 2
+        c['debug2'] = 2
+        
+        c[name] = claimCost[i]
+      
+    }
+    emit(c)
+
+}
+
+function inputFields() {
+  let inputFields = [
+    'MthSales',
+    //'Prem',
+  ]
+
+  /*
+  for (let i = 0; i <= MONTHS; i++) {
+    let name = 'Month' + i
+    inputFields.push(name)
+  }
+ */
+  
+  return inputFields
+}
+
+function outputFields() {
+    let outputFields = [
+        {name: 'MthSales', type: 'integer'},
+        
+        {name: 'debug1', type: 'integer'},
+        {name: 'debug2', type: 'integer' },
+    ];
+    for (let i = 0; i <= MONTHS; i++) {
+        let m = {name: 'Month' + i, type: 'integer'}
+        outputFields.push(m);
+    }
+    return outputFields;
+}
+
+bigquery.defineFunction(
+    'createMaskTable',
+    
+    inputFields(),
+
+    outputFields(),
+
+    createMaskTableExample
+)
+   
 
