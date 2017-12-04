@@ -236,7 +236,7 @@ SELECT c.MthSales as MthSales, c.Premium as Prem, c.ClaimCost as ClaimCost,
      e.Month3 as eM3, e.Month4 as eM4, e.Month5 as eM5, e.Month6 as eM6, 
   e.Month7 as eM7, e.Month8 as eM8, e.Month9 as eM9, e.Month10 as eM10, e.Month11 as eM11, e.Month12 as eM12,
 FROM 
-  [localcover-55:lc_api_show.005_accClaimCostMaskVersion]  as c
+  [localcover-55:yixin.x005_accClaimCostMaskVersion]   as c
 FULL OUTER JOIN EACH
   [localcover-55:lc_api_show.004_accFailureDistribution]  as e
 ON c.YrSales = e.YrSales
