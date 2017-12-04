@@ -134,7 +134,7 @@ SELECT YrSales, MthSales, sum(Premium) as Premium, sum(ClaimCost) as ClaimCost, 
  GROUP BY YrSales, MthSales
  ORDER BY YrSales, MthSales
  
- const MONTHS = 12
+const MONTHS = 12
 const AMONTHS = 12
 const LOCALCOVER_EPOCH = new Date('2016-01-01T00:00:00Z');
 
@@ -160,21 +160,16 @@ function withclaimCostByMonth(row, emit) {
     }
     for (let i = 0; i<= MONTHS; i++){
         claimCost[i] = 0
-        if ((row.MthClaim === i)&& (row.MthSales + row.MthClaim <= AMONTHS)) 
+        if(row.MthClaim === i)
         {
             claimCost[i] = row.ClaimCost
         }
         let name = 'Month' + i
-        //c[name] = claimCost[i]   
-        //accum(0,claimCount)
+        
         c['debug1'] = row.MthSales
         c['debug2'] = row.MthClaim
         
-        if(row.MthSales + row.MthClaim > AMONTHS)
-        //    c[name] = accum(i,claimCost)
-              c[name] = 0.0
-        else
-            c[name] = accum(i,claimCost)
+        c[name] = accum(i,claimCost)
     }
     emit(c)
 
