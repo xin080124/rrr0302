@@ -208,7 +208,8 @@ bigquery.defineFunction(
 
 005marked version
 x005_accClaimCostMaskVersion
-SELECT  a.YrSales, a.MthSales,a.Premium,a.ClaimCost,a.Month0*m.Month0 as M0, a.Month1*m.Month1 as M1, a.Month2*m.Month2 as M2,
+SELECT  a.YrSales as YrSales, a.MthSales as MthSales,a.Premium as Premium ,a.ClaimCost as ClaimCost,
+a.Month0*m.Month0 as M0, a.Month1*m.Month1 as M1, a.Month2*m.Month2 as M2,
 a.Month3*m.Month3 as M3, a.Month4*m.Month4 as M4, a.Month5*m.Month5 as M5,
 a.Month6*m.Month6 as M6, a.Month7*m.Month7 as M7, a.Month8*m.Month8 as M8,
 a.Month9*m.Month9 as M9, a.Month10*m.Month10 as M10, a.Month11*m.Month11 as M11
@@ -218,5 +219,5 @@ FROM [localcover-55:lc_api_show.005_AccumulatedClaimCostForMonth]   as a
    ON a.MthSales = m.MthSales
    //WHERE salesWeek = a01.SalesWeek
    //ORDER BY LRDiv desc
-      
+         
 
