@@ -1,28 +1,72 @@
-#file_object = open("moviestest.txt","r")
-file_object = open("course_books_Jeffrey_p.csv","r")
+import json
+import datetime
 
-path_out = 'result0923.txt'
+#file_object = open("toParse/family.json","r")
 
-file_out = open(path_out,'w')
-lines = file_object.readlines()
+def loadFont():
+    #encoding not supported in 2.7
+    #f = open("toParse/family.json", encoding='utf-8')
+    f = open("toParse/family.json") 
+    setting = json.load(f)
+    family = setting['BaseSettings']['size']
+    size = setting['fontSize']   
+    return family
 
-for line in lines:
-        x = line.split(',')
-        #print x[0]
-        #print x[1]
-        #print x[2]
-        #lineContent = lineContent.replace('\n',' ')
-        x[1] = "\""+x[1]+"\""
-        x[2] = "\""+x[2]+"\""
-        x[3] = "\""+x[3]+"\""
-        sql = "INSERT INTO books0923 (book_id,book_name,author_name,yeartime) VALUES (NULL,"+x[1]+","+x[2]+","+x[3]+")"
-        sql = sql.replace(';','&')
-        sql = sql.replace('\n','')
-        sql = sql+";"
-        print sql
-# file_out.write("hehe "+lineContent)
-print ("\nsuccess")
-#this is a stream operation, or the next file_object
-#will get nothing
-file_object.close()
-file_out.close()
+def loadFailure():
+    f = open("toParse/ProductAnalyticFailureDistributionData.json")
+    lines = f.readlines()
+
+    for line in lines:
+        failure = json.load(line)
+        exFreq = failure['ExpectedFrequency']['Week28']
+        #return exFreq
+        print exFeq
+
+def transferToDate(deltaDat):
+    #today = datetime.date.today()
+    today = datetime.datetime(2015,1,1)
+    deltaDat = 7*deltaDat
+    yesterday = today - datetime.timedelta(days=deltaDat)
+    #print today
+    #print yesterday  
+    tomorrow = today + datetime.timedelta(days=deltaDat)
+    #print tomorrow
+    return tomorrow
+
+def loadTest():
+    #encoding not supported in 2.7
+    #f = open("toParse/family.json", encoding='utf-8')
+    f = open("toParse/test.json")
+    path_out = 'weekFailure1459.csv'
+    file_out = open(path_out,'w')
+
+    test = json.load(f)
+    #time = test['Timestamp']
+    #print time
+
+    exFreq = test['ExpectedFrequency']
+    #print exFreq
+
+    keys = exFreq.keys()
+    #print keys
+
+    for key in keys:
+        #print key+","+str(exFreq[key])+"\n"
+        freq = exFreq[key]
+        key = str(key).replace('Week','')
+        key = transferToDate(int(key))
+        lineContent = str(key)+","+str(freq)+"\n"
+        print lineContent
+        #print exFreq[key]
+        file_out.write(lineContent)
+    file_out.close()
+#t = loadFont()
+#loadFailure()
+
+
+
+loadTest()
+
+#transferToDate(100)
+
+#print t

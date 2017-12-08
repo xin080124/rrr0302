@@ -1,7 +1,7 @@
 
 ####################create sql from csf file#######################################
 #file_object = open("moviestest.txt","r")
-file_object = open("course_books_Jeffrey_p.csv","r")
+file_object = open("toParse/course_books_Jeffrey_p.csv","r")
 
 path_out = 'result0923.txt'
 
