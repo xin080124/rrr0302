@@ -5,7 +5,7 @@ select project---right key---open in explorer
 ---if fail,use git add -f .\js\global.js instead
 ---type "git commit"----a txtfile will pump out---input commit log
 ---close the txtfile---the commit action will be completed automatically
----type ¡°git push¡± in shell or click ¡°sync¡± button on right top to push change to server.
+---type ï¿½ï¿½git pushï¿½ï¿½ in shell or click ï¿½ï¿½syncï¿½ï¿½ button on right top to push change to server.
 
 use git hub to pull public codes
 ----just like svn, manually create a folder in windows file browser
@@ -18,16 +18,16 @@ test on unitecPC branch
 create on 1900
 
 
-modify on 163 account£¬at 2230
+modify on 163 accountï¿½ï¿½at 2230
 
 ????create another account to cowork with the first account
 to practise create branch operation and merge operation.
 
 how to launch cmd on Windows8
-press "start" ,input "cmd" in the search textbox locates on the right top¡£¡£¡£
+press "start" ,input "cmd" in the search textbox locates on the right topï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 how to know if a PC has JDK?
 enter Windows cmd, input "java", if the system feedback can't recognize, then there's no JDK.
 
-
+20230403
 
